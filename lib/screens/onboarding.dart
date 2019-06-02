@@ -9,6 +9,7 @@ class OnBoarding extends StatefulWidget {
 class _OnBoardingState extends State<OnBoarding> {
   List<OnboardingPage> pages = List<OnboardingPage>();
   int _activePageIndex = 0;
+
   void initState() {
     _populatePages();
   }
@@ -39,9 +40,9 @@ class _OnBoardingState extends State<OnBoarding> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _indicators = [];
-    for (int i =0; i < pages.length; i++) {
+    for (int i = 0; i < pages.length; i++) {
       _indicators.add(PageDot(
-        isActive: i ==_activePageIndex ? true : false,
+        isActive: i == _activePageIndex ? true : false,
       ));
     }
     return Scaffold(
@@ -50,7 +51,9 @@ class _OnBoardingState extends State<OnBoarding> {
           PageView.builder(
             itemCount: pages.length,
             onPageChanged: (index) {
-              setState(() { _activePageIndex = index; });
+              setState(() {
+                _activePageIndex = index;
+              });
             },
             itemBuilder: (context, index) {
               return Stack(
@@ -140,9 +143,10 @@ class PageDot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double size = isActive ? 16: 12;
     return Container(
-      width: 15,
-      height: 15,
+      width: size,
+      height: size,
       margin: EdgeInsets.only(right: 8),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
