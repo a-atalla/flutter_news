@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news/models/onboarding_page.dart';
+import 'package:flutter_news/screens/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoarding extends StatefulWidget {
   @override
@@ -12,6 +14,11 @@ class _OnBoardingState extends State<OnBoarding> {
 
   void initState() {
     _populatePages();
+  }
+
+  void _setSeen() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isSeen', true);
   }
 
   void _populatePages() {
@@ -124,7 +131,13 @@ class _OnBoardingState extends State<OnBoarding> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () {
-                    print('Get Started Clicked');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context){
+                          this._setSeen();
+                          return HomeScreen();
+                        })
+                    );
                   },
                 ),
               ),
